@@ -5,10 +5,13 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
+  /* Medical Typography: Inter is the gold standard for legibility */
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "Geist Mono", monospace;
+
+  /* Color Mapping */
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-sans);
-  --font-mono: var(--font-geist-mono);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -38,6 +41,8 @@
   --color-popover: var(--popover);
   --color-card-foreground: var(--card-foreground);
   --color-card: var(--card);
+
+  /* Softer Medical UI Radii */
   --radius-sm: calc(var(--radius) * 0.6);
   --radius-md: calc(var(--radius) * 0.8);
   --radius-lg: var(--radius);
@@ -48,72 +53,93 @@
 }
 
 :root {
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
+  /* Soft Medical White & Navy Text */
+  --background: oklch(0.98 0.005 240);
+  --foreground: oklch(0.25 0.04 250);
+  
   --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
+  --card-foreground: oklch(0.25 0.04 250);
+  
   --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
-  --chart-1: oklch(0.809 0.105 251.813);
-  --chart-2: oklch(0.623 0.214 259.815);
-  --chart-3: oklch(0.546 0.245 262.881);
-  --chart-4: oklch(0.488 0.243 264.376);
-  --chart-5: oklch(0.424 0.199 265.638);
-  --radius: 0.625rem;
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.205 0 0);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
+  --popover-foreground: oklch(0.25 0.04 250);
+
+  /* Primary: Professional Trust Blue */
+  --primary: oklch(0.55 0.18 250); 
+  --primary-foreground: oklch(0.99 0 0);
+
+  /* Secondary: Soft Teal-Gray (Calming) */
+  --secondary: oklch(0.94 0.02 200);
+  --secondary-foreground: oklch(0.35 0.08 220);
+
+  --muted: oklch(0.94 0.01 240);
+  --muted-foreground: oklch(0.50 0.05 240);
+
+  --accent: oklch(0.92 0.04 210);
+  --accent-foreground: oklch(0.40 0.15 240);
+
+  --destructive: oklch(0.60 0.18 25); /* Not too bright red */
+  
+  --border: oklch(0.88 0.02 240);
+  --input: oklch(0.88 0.02 240);
+  --ring: oklch(0.55 0.18 250);
+
+  /* Healthcare Chart Palette (Blues/Teals/Greens) */
+  --chart-1: oklch(0.65 0.15 240);
+  --chart-2: oklch(0.75 0.12 190);
+  --chart-3: oklch(0.82 0.10 160);
+  --chart-4: oklch(0.55 0.18 250);
+  --chart-5: oklch(0.45 0.15 260);
+
+  --radius: 0.75rem;
+
+  /* Sidebar styling */
+  --sidebar: oklch(0.98 0.01 240);
+  --sidebar-foreground: oklch(0.25 0.04 250);
+  --sidebar-primary: var(--primary);
+  --sidebar-primary-foreground: var(--primary-foreground);
+  --sidebar-accent: oklch(0.92 0.04 210);
+  --sidebar-accent-foreground: var(--primary);
+  --sidebar-border: oklch(0.92 0.02 240);
+  --sidebar-ring: var(--ring);
 }
 
 .dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.205 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.205 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.922 0 0);
-  --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0 0);
-  --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.556 0 0);
-  --chart-1: oklch(0.809 0.105 251.813);
-  --chart-2: oklch(0.623 0.214 259.815);
-  --chart-3: oklch(0.546 0.245 262.881);
-  --chart-4: oklch(0.488 0.243 264.376);
-  --chart-5: oklch(0.424 0.199 265.638);
-  --sidebar: oklch(0.205 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.556 0 0);
+  /* Deep Navy Backgrounds (not pure black) */
+  --background: oklch(0.18 0.03 250);
+  --foreground: oklch(0.92 0.02 240);
+  
+  --card: oklch(0.22 0.03 250);
+  --card-foreground: oklch(0.92 0.02 240);
+  
+  --popover: oklch(0.22 0.03 250);
+  --popover-foreground: oklch(0.92 0.02 240);
+
+  --primary: oklch(0.65 0.15 240);
+  --primary-foreground: oklch(0.18 0.03 250);
+  
+  --secondary: oklch(0.28 0.04 240);
+  --secondary-foreground: oklch(0.92 0.02 240);
+  
+  --muted: oklch(0.28 0.04 240);
+  --muted-foreground: oklch(0.70 0.03 240);
+  
+  --accent: oklch(0.28 0.04 240);
+  --accent-foreground: oklch(0.92 0.02 240);
+  
+  --destructive: oklch(0.50 0.18 25);
+  
+  --border: oklch(0.32 0.03 250);
+  --input: oklch(0.32 0.03 250);
+  --ring: oklch(0.65 0.15 240);
+
+  --sidebar: oklch(0.20 0.03 250);
+  --sidebar-foreground: oklch(0.92 0.02 240);
+  --sidebar-primary: oklch(0.65 0.15 240);
+  --sidebar-primary-foreground: oklch(0.20 0.03 250);
+  --sidebar-accent: oklch(0.28 0.04 240);
+  --sidebar-accent-foreground: oklch(0.92 0.02 240);
+  --sidebar-border: oklch(0.32 0.03 250);
+  --sidebar-ring: oklch(0.65 0.15 240);
 }
 
 @layer base {
@@ -121,7 +147,7 @@
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground antialiased;
   }
   html {
     @apply font-sans;
