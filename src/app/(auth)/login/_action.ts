@@ -34,16 +34,10 @@ export const loginAction = async (payload : ILoginPayload, redirectPath ?: strin
         //     redirect("/verify-email");
         // }else // in the catch block
             
-        if(needPasswordChange){
-            //TODO : refactoring
-            redirect(`/reset-password?email=${email}`);
-        }else{
-            // redirect(redirectPath || "/dashboard");
-            const targetPath = redirectPath && isValidRedirectForRole(redirectPath, role as UserRole) ? redirectPath : getDefaultDashboardRoute(role as UserRole);
+        const targetPath = redirectPath && isValidRedirectForRole(redirectPath, role as UserRole) ? redirectPath : getDefaultDashboardRoute(role as UserRole);
 
-            
-            redirect(targetPath);
-        }
+        
+        redirect(targetPath);
         
     } catch (error : any) {
         console.log(error, "error");
