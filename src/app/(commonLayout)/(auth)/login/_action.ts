@@ -4,6 +4,8 @@ import { ILoginPayload, loginZodSchema } from "@/zod/auth.validation";
 import { ILoginResponse } from "@/types/auth.types";
 import { httpClient } from "@/lib/axios/httpClient";
 import { ApiErrorResponse } from "@/types/api.types";
+import { setTokenInCookies } from "@/lib/tokenUtils";
+import { redirect } from "next/navigation";
 
 export const loginAction = async (payload : ILoginPayload) : Promise<ILoginResponse | ApiErrorResponse> => {
     const parsedPayload = loginZodSchema.safeParse(payload);
@@ -17,9 +19,13 @@ export const loginAction = async (payload : ILoginPayload) : Promise<ILoginRespo
     try {
         const response = await httpClient.post<ILoginResponse>('/auth/login', parsedPayload.data);
 
-        const {token, accessToken, refreshToken, user} = response.data;
+        const {token, accessToken, refreshToken} = response.data;
+        await setTokenInCookies("accessToken", accessToken);
+        await setTokenInCookies("refreshToken", refreshToken);
+        await setTokenInCookies("better-auth.session_token", token);
 
-        return response.data;
+        redirect("/dashboard");
+        
     } catch (error) {
         return {
             success : false,
