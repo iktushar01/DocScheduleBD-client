@@ -1,4 +1,5 @@
 "use client"
+
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { loginAction } from "@/app/(auth)/login/_action";
 import AppField from "@/components/shared/from/AppField";
@@ -21,6 +22,7 @@ const LoginForm = ({ redirectPath }: LoginFormProps) => {
     const [serverError, setServerError] = useState<string | null>(null);
     const [showPassword, setShowPassword] = useState(false);
 
+    // Manual Login Mutation
     const { mutateAsync, isPending } = useMutation({
         mutationFn: (payload: ILoginPayload) => loginAction(payload, redirectPath),
     })
@@ -44,12 +46,20 @@ const LoginForm = ({ redirectPath }: LoginFormProps) => {
         }
     })
 
+    // Handle Google SSO Redirect
+    const handleGoogleLogin = () => {
+        const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
+        const frontendBaseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+        
+        // Define where the user should land on the frontend after backend auth is successful
+        const targetPath = redirectPath || "/dashboard";
+        const finalRedirect = `${frontendBaseUrl}${targetPath}`;
+
+        // Construct backend URL with the redirect query parameter
+        window.location.href = `${apiBaseUrl}/auth/login/google?redirect=${encodeURIComponent(finalRedirect)}`;
+    };
+
     return (
-        /* 
-           Wrapper: ensures content is centered on all screens.
-           min-h-screen ensures it occupies the full height.
-           p-4 adds a gutter on small mobile devices.
-        */
         <div className="min-h-[calc(100vh-80px)] w-full flex items-center justify-center p-4">
             <Card className="w-full max-w-md shadow-2xl border-t-4 border-t-primary bg-card transition-all duration-300">
                 <CardHeader className="space-y-2 text-center pb-6">
@@ -157,10 +167,7 @@ const LoginForm = ({ redirectPath }: LoginFormProps) => {
                     <Button 
                         variant="outline" 
                         className="w-full h-11 border-border bg-background hover:bg-secondary/30 transition-all font-medium" 
-                        onClick={() => {
-                            const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
-                            window.location.href = `${baseUrl}/auth/login/google`;
-                        }}
+                        onClick={handleGoogleLogin}
                     >
                         <svg className="w-4 h-4 mr-2" viewBox="0 0 24 24">
                             <path fill="currentColor" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" />
