@@ -181,8 +181,9 @@ export const getNavItemsByRole = (role : UserRole) : NavSection[] => {
             return [...commonNavItems, ...doctorNavItems];
 
         case "PATIENT":
-            return [...commonNavItems, ...patientNavItems]
+            return [...commonNavItems, ...patientNavItems];
+            
+        default:
+            return commonNavItems || [];
     }
-
-
 }

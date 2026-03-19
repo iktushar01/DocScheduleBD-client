@@ -2,6 +2,7 @@
 
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { Separator } from "@/components/ui/separator"
+import { SheetTitle } from "@/components/ui/sheet"
 import { getIconComponent } from "@/lib/iconMapper"
 import { cn } from "@/lib/utils"
 import { NavSection } from "@/types/dashboard.types"
@@ -9,17 +10,17 @@ import { IUserInfo } from "@/types/users.types"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 
-interface DashboardSidebarContentProps {
+interface DashboardMobileSidebarProps {
   userInfo: IUserInfo
   navItems: NavSection[]
   dashboardHome: string
 }
 
-const DashboardSidebarContent = ({
+const DashboardMobileSidebar = ({
   dashboardHome,
   navItems,
   userInfo,
-}: DashboardSidebarContentProps) => {
+}: DashboardMobileSidebarProps) => {
   const pathname = usePathname()
 
   const initials = userInfo.name
@@ -35,12 +36,13 @@ const DashboardSidebarContent = ({
     .replace(/\b\w/g, (c) => c.toUpperCase())
 
   return (
-    <div className="hidden md:flex h-full w-64 flex-col bg-sidebar overflow-hidden">
+    <div className="flex h-full flex-col bg-sidebar overflow-hidden">
+      <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
+
       {/* Brand */}
       <div className="flex h-16 items-center gap-3 px-5 border-b border-sidebar-border shrink-0">
-        <Link href={dashboardHome} className="flex items-center gap-2.5 group">
-          {/* Logo mark */}
-          <div className="h-8 w-8 rounded-lg bg-sidebar-primary flex items-center justify-center shadow-lg shadow-sidebar-primary/30 group-hover:scale-105 transition-transform duration-200">
+        <Link href={dashboardHome} className="flex items-center gap-2.5">
+          <div className="h-8 w-8 rounded-lg bg-sidebar-primary flex items-center justify-center shadow-lg shadow-sidebar-primary/30">
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
               <path d="M8 2L14 5.5V10.5L8 14L2 10.5V5.5L8 2Z" fill="white" fillOpacity="0.9" />
               <path d="M8 5L11 6.75V10.25L8 12L5 10.25V6.75L8 5Z" fill="white" fillOpacity="0.5" />
@@ -110,12 +112,10 @@ const DashboardSidebarContent = ({
       {/* User footer */}
       <div className="shrink-0 border-t border-sidebar-border px-3 py-3">
         <div className="flex items-center gap-3 rounded-lg px-2 py-2 hover:bg-sidebar-accent transition-colors duration-150 cursor-pointer">
-          {/* Avatar */}
           <div className="relative h-8 w-8 shrink-0">
             <div className="h-8 w-8 rounded-full bg-gradient-to-br from-sidebar-primary to-sidebar-primary/60 flex items-center justify-center shadow-sm">
               <span className="text-xs font-bold text-white">{initials}</span>
             </div>
-            {/* Online dot */}
             <span className="absolute -bottom-0.5 -right-0.5 h-2.5 w-2.5 rounded-full bg-emerald-400 border-2 border-sidebar" />
           </div>
 
@@ -127,26 +127,10 @@ const DashboardSidebarContent = ({
               {roleLabel}
             </p>
           </div>
-
-          <svg
-            width="14"
-            height="14"
-            viewBox="0 0 14 14"
-            fill="none"
-            className="shrink-0 text-sidebar-foreground/30"
-          >
-            <path
-              d="M2.5 5.5L7 9.5L11.5 5.5"
-              stroke="currentColor"
-              strokeWidth="1.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
         </div>
       </div>
     </div>
   )
 }
 
-export default DashboardSidebarContent
+export default DashboardMobileSidebar

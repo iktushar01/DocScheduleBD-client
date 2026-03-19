@@ -5,6 +5,7 @@ export default function CommonLayout({
 }>) {
   return (
     <>
+
     {children}
     </>
   );
